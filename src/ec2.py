@@ -44,7 +44,7 @@ class Ec2Helper:
             print("Choose one:")
             print("1 - SSH to PrivateIp")
             print("2 - SSH to PublicIp")
-            choice = utils.choiceEvaluator(3)
+            choice = utils.choiceEvaluator([2])
             usePrivate = True if int(choice) == 1 else False 
         elif self.chosen_instance['PrivateIpAddress']:
             usePrivate = True
