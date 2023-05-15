@@ -64,9 +64,10 @@ class Ec2Helper:
             # Use the describe_instances method to obtain a list of all EC2 instances
             response = ec2.describe_instances()
             # Store relevant information about each instance in a list of dictionaries
+            
             self.all_instances = [{
                 "Index"             : i+1,
-                "Name"              : inst.get("Tags", [{"Value": None}],)[0]["Value"],
+                "Name"              :  inst["Tags"][next((i for i, tag in enumerate(inst["Tags"]) if tag["Key"] == "Name"), len(inst["Tags"]))]["Value"] if "Tags" in inst else None,
                 "InstanceId"        : inst["InstanceId"],
                 "InstanceType"      : inst["InstanceType"],
                 "KeyName"           : inst.get("KeyName"),
@@ -205,3 +206,8 @@ class Ec2Helper:
         else:
             # If there are no active filters, print out a message indicating so
             print("No active filters")
+
+def instanceNamefinder(instance):
+    name_tags=[tag["Value"] for tag in instance["Tags"] if tag["Key"] == "Name"]
+    name=name_tags[0] if name_tags else None,
+    return name[0]
