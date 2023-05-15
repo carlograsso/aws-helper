@@ -1,1 +1,1 @@
-# aws-session-manager
+# aws-helper
